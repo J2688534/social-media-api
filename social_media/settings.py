@@ -1,8 +1,6 @@
 from pathlib import Path
 import os
 from datetime import timedelta
-import dj_database_url
-import django_heroku
 
 
 
@@ -18,7 +16,8 @@ SECRET_KEY = "your-secret-key"
 # SECURITY WARNING: don’t run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS =  ['your-app-name.herokuapp.com']
+ALLOWED_HOSTS =  ['obeng124.pythonanywhere.com']
+
 
 
 
@@ -56,8 +55,7 @@ MIDDLEWARE = [
 ]
 
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+
 
 # Root URL configuration
 ROOT_URLCONF = "social_media.urls"
@@ -128,24 +126,21 @@ from datetime import timedelta
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
     ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+    ],
 }
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-}
 
 
 
 
-# Configure Django App for Heroku
-import django_heroku
-django_heroku.settings(locals())
+
+
 
 # Static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-# Database (override default sqlite3 with Postgres on Heroku)
-DATABASES['default'] = dj_database_url.config(default=DATABASES['default'])
