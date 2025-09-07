@@ -16,8 +16,7 @@ SECRET_KEY = "your-secret-key"
 # SECURITY WARNING: don’t run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS =  ALLOWED_HOSTS = ['obeng124.pythonanywhere.com', '127.0.0.1', 'localhost']
-
+ALLOWED_HOSTS =  ALLOWED_HOSTS = ['obeng124.pythonanywhere.com']
 
 
 
