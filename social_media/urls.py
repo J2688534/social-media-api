@@ -27,7 +27,11 @@ from django.http import JsonResponse
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    # App routes
     path("api/users/", include("users.urls")),
     path("api/posts/", include("posts.urls")),
+
+    # Root welcome route
     path("", lambda request: JsonResponse({"message": "Welcome to the Social Media API!"})),
 ]

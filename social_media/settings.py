@@ -1,5 +1,13 @@
-import os
 from pathlib import Path
+import os
+from datetime import timedelta
+import dj_database_url
+import django_heroku
+
+
+
+
+
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,9 +16,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "your-secret-key"
 
 # SECURITY WARNING: don’t run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS =  ['your-app-name.herokuapp.com']
+
+
+
 
 # Installed apps
 INSTALLED_APPS = [
@@ -27,6 +38,9 @@ INSTALLED_APPS = [
     # Local apps
     "users",
     "posts",
+ "rest_framework.authtoken",
+    "django_filters",
+
 ]
 
 # Middleware
@@ -38,7 +52,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
 # Root URL configuration
 ROOT_URLCONF = "social_media.urls"
@@ -84,9 +103,8 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
-
-# Static files
-STATIC_URL = "static/"
+# Static files (CSS, JS, Images)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -117,3 +135,17 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+
+
+
+# Configure Django App for Heroku
+import django_heroku
+django_heroku.settings(locals())
+
+# Static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Database (override default sqlite3 with Postgres on Heroku)
+DATABASES['default'] = dj_database_url.config(default=DATABASES['default'])

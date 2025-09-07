@@ -1,33 +1,58 @@
 from rest_framework import serializers
-from .models import Post, Comment
+from .models import Post, Comment, Like
 
+
+from rest_framework import serializers
+from .models import Post, Comment, Like
+
+
+from rest_framework import serializers
+from .models import Post, Comment, Like
+
+
+# Comment Serializer (without post)
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)  # show username instead of ID
+    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ['id', 'user', 'post', 'content', 'created_at']
-        read_only_fields = ['id', 'user', 'created_at']
-from .models import Like
+        fields = ["id", "user", "content", "created_at"]  # removed "post"
+        read_only_fields = ["id", "user", "created_at"]
+
+
+
+# Like Serializer (without post)
 
 class LikeSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Like
-        fields = ['id', 'user', 'post', 'created_at']
-        read_only_fields = ['id', 'user', 'created_at']
+        fields = ["id", "user", "created_at"]  # removed "post"
+        read_only_fields = ["id", "user", "created_at"]
 
-from .models import Post, Comment, Like
 
+# Post Serializer (with nested comments + likes)
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField(read_only=True)
+    user = serializers.StringRelatedField(read_only=True)
     likes_count = serializers.SerializerMethodField()
     comments_count = serializers.SerializerMethodField()
+    comments = CommentSerializer(many=True, read_only=True)
+    likes = LikeSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'content', 'media', 'timestamp', 'likes_count', 'comments_count']
+        fields = [
+            "id",
+            "user",
+            "content",
+            "created_at",
+            "likes_count",
+            "comments_count",
+            "comments",
+            "likes",
+        ]
+        read_only_fields = ["id", "user", "created_at"]
 
     def get_likes_count(self, obj):
         return obj.likes.count()
