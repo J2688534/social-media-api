@@ -20,8 +20,3 @@ This API allows users to:
 - Django REST Framework (DRF)
 - SQLite (default, can be swapped with PostgreSQL)
 
-## Setup Instructions
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/social-media-api.git
-   cd social-media-api
