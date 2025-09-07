@@ -20,3 +20,14 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+from django.contrib import admin
+from django.urls import path, include
+from django.http import JsonResponse
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/users/", include("users.urls")),
+    path("api/posts/", include("posts.urls")),
+    path("", lambda request: JsonResponse({"message": "Welcome to the Social Media API!"})),
+]
