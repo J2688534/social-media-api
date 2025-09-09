@@ -20,3 +20,13 @@ This API allows users to:
 - Django REST Framework (DRF)
 - SQLite (default, can be swapped with PostgreSQL)
 
+- I was able to complete 
+Social Media API is a Django-based backend application that allows users to create accounts, log in, follow/unfollow other users, and view profiles. This project solves the problem of connecting users and managing social interactions through a RESTful API.
+
+## Features
+- **User Registration & Login**  
+- **View User Profile**  
+- **Follow/Unfollow Users**  
+- **JWT Authentication using SimpleJWT**  
+- **REST API with Django REST Framework** 
+
