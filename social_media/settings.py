@@ -2,11 +2,6 @@ from pathlib import Path
 import os
 from datetime import timedelta
 
-
-
-
-
-
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -16,11 +11,7 @@ SECRET_KEY = "your-secret-key"
 # SECURITY WARNING: don’t run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS =  ALLOWED_HOSTS = ['obeng124.pythonanywhere.com']
-
-
-
-
+ALLOWED_HOSTS = ['obeng124.pythonanywhere.com']
 
 # Installed apps
 INSTALLED_APPS = [
@@ -33,13 +24,12 @@ INSTALLED_APPS = [
 
     # Third-party apps
     "rest_framework",
+    "rest_framework.authtoken",
+    "django_filters",
 
     # Local apps
     "users",
     "posts",
- "rest_framework.authtoken",
-    "django_filters",
-
 ]
 
 # Middleware
@@ -51,11 +41,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-     'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
-
-
-
 
 # Root URL configuration
 ROOT_URLCONF = "social_media.urls"
@@ -80,6 +67,7 @@ TEMPLATES = [
 # WSGI
 WSGI_APPLICATION = "social_media.wsgi.application"
 
+
 # Database
 DATABASES = {
     "default": {
@@ -101,8 +89,10 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
+
 # Static files (CSS, JS, Images)
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -112,18 +102,6 @@ AUTH_USER_MODEL = "users.User"
 
 # Django REST Framework settings
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
-    ],
-}
-
-
-from datetime import timedelta
-
-REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
@@ -132,15 +110,3 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ],
 }
-
-
-
-
-
-
-
-
-# Static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
